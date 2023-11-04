@@ -1,4 +1,5 @@
 extends CharacterBody3D
+@onready var timer = $Timer
 
 var speed
 const WALK_SPEED = 8.0
@@ -6,7 +7,8 @@ const SPRINT_SPEED = 8.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.004
 const HIT_STAGGER = 8.0
-
+var player_health= 100
+var fear = 0
 #bob variables
 const BOB_FREQ = 2.4
 const BOB_AMP = 0.08
@@ -123,9 +125,29 @@ func _headbob(time) -> Vector3:
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
 
-
+'''func hurt(hit_points):
+	if hit_points < player_health:
+		player_health -= hit_points
+	else:
+		player_health = 0
+	if player_health == 0:
+		die()
+func die():
+	pass
+'''
 func hit(dir):
 	emit_signal("player_hit")
+	var dam=10
+	#var fear_level = 50
+	#var fear_level_2 = 50
+	
+	player_health-=dam
+	#fear += fear_level	
+	#if fear_level > 100:
+		#get_tree().change_scene_to_file("res://control.tscn")
+	if(player_health<0):
+		get_tree().change_scene_to_file("res://control.tscn")
+	
 	velocity += dir * HIT_STAGGER
 	if velocity.length() > SPRINT_SPEED:
 		velocity = velocity.normalized() * SPRINT_SPEED
@@ -190,4 +212,3 @@ func _raise_weapon(new_weapon):
 			weapon_switching.play_backwards("LowerPistols")
 	weapon = new_weapon
 	can_shoot = true
-

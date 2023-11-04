@@ -16,4 +16,11 @@ res://Scenes/Player.tscn
 res://Scenes/Bullet.tscn
 res://Scenes/Zombie.tscn
 res://Scenes/enezombie.tscn
-res://Scenes/enezombie.gd
+res://Scripts/Zombie.gd
+res://Scripts/Player.gd
+res://control.tscn
+res://Scenes/interactRay.gd
+res://Scenes/RayCast3D.gd
+res://Scenes/medkit.gd
+res://Scenes/medkit.tscn
+res://Scenes/InteractRay.gd

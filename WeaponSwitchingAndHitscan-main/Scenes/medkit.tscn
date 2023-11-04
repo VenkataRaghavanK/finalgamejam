@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvt8i5pqck0fw"]
+
+[ext_resource type="Script" path="res://Scenes/medkit.gd" id="1_hf7wo"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lglp0"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y64go"]
+
+[node name="medkit" type="Node3D"]
+script = ExtResource("1_hf7wo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.195, 0, 0, 0, 0.195, 0, 0, 0, 0.195, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_lglp0")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.215, 0, 0, 0, 0.215, 0, 0, 0, 0.215, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_y64go")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

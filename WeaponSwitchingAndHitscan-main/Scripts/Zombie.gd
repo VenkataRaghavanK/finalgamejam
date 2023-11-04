@@ -54,7 +54,6 @@ func _hit_finished():
 		player.hit(dir)
 
 
-
 func _on_area_3d_body_part_hit(dam):
 	health -= dam
 	emit_signal("zombie_hit")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://5iurrb07epis"]
+[gd_scene load_steps=12 format=3 uid="uid://5iurrb07epis"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_ueh2c"]
 [ext_resource type="PackedScene" uid="uid://bqpwh2qhltcpn" path="res://Scenes/Rifle.tscn" id="2_kpw2n"]
 [ext_resource type="PackedScene" uid="uid://cvxonb5tocae2" path="res://Scenes/SteampunkAuto.tscn" id="2_nwejs"]
+[ext_resource type="Script" path="res://Scenes/InteractRay.gd" id="4_o3w47"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xc2g5"]
 
@@ -96,6 +97,46 @@ _data = {
 "LowerPistols": SubResource("Animation_0xmlf")
 }
 
+[sub_resource type="FontFile" id="FontFile_tk8kj"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/15/0 = Vector2(0, 0)
+cache/0/5/0/ascent = 0.0
+cache/0/5/0/descent = 0.0
+cache/0/5/0/underline_position = 0.0
+cache/0/5/0/underline_thickness = 0.0
+cache/0/5/0/scale = 1.0
+cache/0/5/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/5/0/kerning_overrides/15/0 = Vector2(0, 0)
+cache/0/10/0/ascent = 0.0
+cache/0/10/0/descent = 0.0
+cache/0/10/0/underline_position = 0.0
+cache/0/10/0/underline_thickness = 0.0
+cache/0/10/0/scale = 1.0
+cache/0/10/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/10/0/kerning_overrides/15/0 = Vector2(0, 0)
+cache/0/15/0/ascent = 0.0
+cache/0/15/0/descent = 0.0
+cache/0/15/0/underline_position = 0.0
+cache/0/15/0/underline_thickness = 0.0
+cache/0/15/0/scale = 1.0
+cache/0/15/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/15/0/kerning_overrides/5/0 = Vector2(0, 0)
+cache/0/15/0/kerning_overrides/10/0 = Vector2(0, 0)
+cache/0/15/0/kerning_overrides/15/0 = Vector2(0, 0)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_j7ku3"]
+
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
 floor_max_angle = 1.0472
@@ -141,3 +182,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -101.5)
 libraries = {
 "": SubResource("AnimationLibrary_smhxs")
 }
+
+[node name="InteractRay" type="RayCast3D" parent="Head"]
+transform = Transform3D(7.415, 0, 0, 0, 0.845, 0, 0, 0, 0.475, 0, -0.415, 0)
+target_position = Vector3(0, 0, -4)
+script = ExtResource("4_o3w47")
+
+[node name="Prompt" type="Label" parent="Head/InteractRay"]
+offset_left = 929.0
+offset_top = 499.0
+offset_right = 984.0
+offset_bottom = 523.0
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontFile_tk8kj")
+theme_override_font_sizes/font_size = 15
+text = "HELLOO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="HitPlayerArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitPlayerArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_j7ku3")
+
+[connection signal="body_entered" from="HitPlayerArea" to="." method="_on_hit_player_area_body_entered"]
